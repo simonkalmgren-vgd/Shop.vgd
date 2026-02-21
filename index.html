@@ -2,87 +2,107 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VGD</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:Inter, sans-serif;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:-apple-system, BlinkMacSystemFont, sans-serif;
 background:#0a0a0a;
 color:white;
 }
 
+/* HEADER */
+
 header{
-padding:30px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+padding:20px;
+text-align:center;
 border-bottom:1px solid #222;
 }
 
 .logo{
-font-size:28px;
-letter-spacing:6px;
+font-size:24px;
+letter-spacing:8px;
 }
 
-.hero{
-height:60vh;
-display:flex;
-align-items:center;
-justify-content:center;
+/* TOP IMAGE SLIDER */
+
+.hero-slider{
+position:relative;
+width:100%;
+height:55vh;
+overflow:hidden;
+}
+
+.hero-slide{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+transition:opacity 1s;
+}
+
+.hero-slide.active{
+opacity:1;
+}
+
+/* PRODUCT SECTION */
+
+.product{
+max-width:500px;
+margin:auto;
+padding:30px 20px;
 text-align:center;
 }
 
-.hero h1{
-font-size:64px;
-letter-spacing:10px;
-}
-
-.products{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-}
-
-.product{
-background:#111;
-padding:20px;
-border:1px solid #222;
-}
+/* PRODUCT IMAGE */
 
 .product img{
 width:100%;
+margin-bottom:20px;
 }
 
-button{
-width:100%;
-padding:12px;
-margin-top:10px;
-background:white;
-border:none;
-cursor:pointer;
-font-weight:600;
-}
+/* FORM */
 
-select,input{
+select,input,button{
 width:100%;
-padding:10px;
+padding:14px;
 margin-top:10px;
 background:#0a0a0a;
 border:1px solid #333;
 color:white;
+font-size:16px;
+}
+
+button{
+background:white;
+color:black;
+font-weight:600;
+cursor:pointer;
 }
 
 footer{
 text-align:center;
 padding:40px;
 color:#777;
+}
+
+/* MOBILE */
+
+@media (max-width:600px){
+
+.hero-slider{
+height:45vh;
+}
+
 }
 
 </style>
@@ -92,23 +112,33 @@ color:#777;
 
 <header>
 <div class="logo">VGD</div>
-<div>Modern Underground Clothing</div>
 </header>
 
-<section class="hero">
-<h1>VGD</h1>
+<!-- Roterande bilder -->
+
+<section class="hero-slider">
+
+<!-- BYT DESSA TILL DINA BILDER -->
+
+<img src="slide1.jpg" class="hero-slide active">
+<img src="slide2.jpg" class="hero-slide">
+<img src="slide3.jpg" class="hero-slide">
+
 </section>
 
-<section class="products">
+<!-- PRODUKT -->
 
-<div class="product">
-<img src="https://picsum.photos/500/600" alt="">
-<h3>VGD Distressed Hoodie</h3>
-<p>1200 SEK</p>
+<section class="product">
+
+<!-- PRODUKTBILD -->
+<img src="tshirt.jpg">
+
+<h2>VGD T-Shirt</h2>
+<p>350 kr</p>
 
 <form action="https://formspree.io/f/yourcode" method="POST">
 
-<input type="hidden" name="Produkt" value="Distressed Hoodie">
+<input type="hidden" name="Produkt" value="VGD T-Shirt">
 
 <label>Storlek</label>
 <select name="Storlek">
@@ -117,22 +147,44 @@ color:#777;
 <option>L</option>
 </select>
 
-<label>Ditt namn</label>
+<label>Namn</label>
 <input type="text" name="Namn" required>
 
 <label>Email</label>
 <input type="email" name="Email" required>
 
-<button type="submit">Beställ</button>
+<button type="submit">Förbeställ</button>
 
 </form>
-</div>
 
 </section>
 
 <footer>
 © VGD
 </footer>
+
+<script>
+
+/* TOP IMAGE ROTATION */
+
+let heroSlides = document.querySelectorAll(".hero-slide");
+let heroIndex = 0;
+
+setInterval(() => {
+
+heroSlides[heroIndex].classList.remove("active");
+
+heroIndex++;
+
+if(heroIndex >= heroSlides.length){
+heroIndex = 0;
+}
+
+heroSlides[heroIndex].classList.add("active");
+
+}, 3000);
+
+</script>
 
 </body>
 </html>
